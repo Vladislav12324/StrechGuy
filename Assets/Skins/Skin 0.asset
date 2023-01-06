@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9a07b074894772be820abe318e1134, type: 3}
+  m_Name: Skin 0
+  m_EditorClassIdentifier: 
+  _skin: {fileID: 7599510980026753119, guid: fc54f2f427b0a8c448d4e3c839bea6fe, type: 3}
+  _image: {fileID: 21300000, guid: 320faa16ea63d694f9293a35f9812786, type: 3}
+  _alwaysOpened: 1
+  _ropeColor1: {r: 0, g: 0.54509807, b: 1, a: 0}
