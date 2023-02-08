@@ -3,6 +3,8 @@ using System.Collections;
 using Eiko.YaSDK;
 using UnityEngine;
 using Eiko.YaSDK.Data;
+using Sources.Advertising;
+using Sources.Data;
 
 public class BonusSelectionView : MonoBehaviour
 {
@@ -29,8 +31,8 @@ public class BonusSelectionView : MonoBehaviour
         var left = Instantiate(leftPrefab, _left);
         var right = Instantiate(_bonusPrefabs.Random(leftPrefab), _right);
         left.buy = true;
-        YandexSDK.instance.onRewardedAdReward += InstanceOnonRewardedAdReward;
-        YandexSDK.instance.onRewardedAdClosed += OnBonusClicked;
+        AdvertisingSdk.RewardedEnded += InstanceOnonRewardedAdReward;
+        AdvertisingSdk.RewardedNotSeenToTheEnd += OnRewardedNotSeenToTheEnd;
         
         left.Clicked += OnBonusClicked;
         right.Clicked += OnBonusClicked;
@@ -89,7 +91,7 @@ public class BonusSelectionView : MonoBehaviour
             Disable();
             return;
         }
-        YandexSDK.instance.ShowRewarded("BonusSelect");
+        AdvertisingSdk.ShowRewarded("BonusSelect");
         
     }
 
@@ -105,36 +107,36 @@ public class BonusSelectionView : MonoBehaviour
 
     private void OnDestroy()
     {
-        YandexSDK.instance.onRewardedAdReward -= InstanceOnonRewardedAdReward;
-        YandexSDK.instance.onRewardedAdClosed -= OnBonusClicked;
+        AdvertisingSdk.RewardedEnded -= InstanceOnonRewardedAdReward;
+        AdvertisingSdk.RewardedNotSeenToTheEnd -= OnRewardedNotSeenToTheEnd;
         
         onDestroy?.Invoke();
     }
     private void BonusBord()
     {
         //Instantiate(_bords[bonus_i],_mid);
-        if (bonus_i == 0 && YandexPrefs.GetInt("double") !=1)
+        if (bonus_i == 0 && Prefs.GetInt("double") !=1)
         {
-            YandexPrefs.SetInt("double", 1);
+            Prefs.SetInt("double", 1);
             _bords[bonus_i].SetActive(true);
         }
-        if (bonus_i == 1 && YandexPrefs.GetInt("fly") != 1)
+        if (bonus_i == 1 && Prefs.GetInt("fly") != 1)
         {
-            YandexPrefs.SetInt("fly", 1);
+            Prefs.SetInt("fly", 1);
             _bords[bonus_i].SetActive(true);
         }
-        if (bonus_i == 2 && YandexPrefs.GetInt("infinity") != 1)
+        if (bonus_i == 2 && Prefs.GetInt("infinity") != 1)
         {
-            YandexPrefs.SetInt("infinity", 1);
+            Prefs.SetInt("infinity", 1);
             _bords[bonus_i].SetActive(true);
         }
-        if (bonus_i == 3 && YandexPrefs.GetInt("iron") != 1)
+        if (bonus_i == 3 && Prefs.GetInt("iron") != 1)
         {
-            YandexPrefs.SetInt("iron", 1);
+            Prefs.SetInt("iron", 1);
             _bords[bonus_i].SetActive(true);
         }
     }
-    private void OnBonusClicked(int obj)
+    private void OnRewardedNotSeenToTheEnd(string placement)
     {
         OnBonusClicked(null);
     }

@@ -164,8 +164,10 @@ namespace Eiko.YaSDK
         public string adsPurchize = "AddOff";
         public string Lang = "ru";
 
-        private void Awake() {
-            if (instance == null) {
+        private void Awake() 
+        {
+            if (instance == null) 
+            {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
 #if !UNITY_EDITOR && UNITY_WEBGL

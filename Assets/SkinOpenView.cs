@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Eiko.YaSDK.Data;
+using Sources.Data;
 
 public class SkinOpenView : MonoBehaviour
 {
@@ -21,10 +21,7 @@ public class SkinOpenView : MonoBehaviour
         }
         else
         {
-            _progressValue = YandexPrefs.GetInt("skinprogress");
-            _progressValue++;
-            if(YandexPrefs.GetInt("skinprogress")< _progressValue)
-                YandexPrefs.SetInt("skinprogress", _progressValue);
+            Prefs.Increment("skinprogress");
         }
 
         _progress.DOValue(_progressValue / 10f, 1);
@@ -42,11 +39,8 @@ public class SkinOpenView : MonoBehaviour
             
             SkinPreview.Show(skin);
             _progressValue = 0;
-            YandexPrefs.SetInt("skinprogress", 0);
+            Prefs.SetInt("skinprogress", 0);
         }
             
-    }
-    private void Update()
-    {
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Sources.Advertising;
 
 public class SkinChangeView : MonoBehaviour
 {
@@ -114,9 +115,8 @@ public class SkinChangeView : MonoBehaviour
 
     private void OnRewardedClicked(SkinView view, HeadSkin skin)
     {
-        //TODO AD
-        YandexSDK.instance.onRewardedAdReward += (obj) => OnRewardedAdReward(obj, view, skin);
-        YandexSDK.instance.ShowRewarded("SkinOpenChange");
+        AdvertisingSdk.RewardedEnded += placement => OnRewardedAdReward(placement, view, skin);
+        AdvertisingSdk.ShowRewarded("SkinOpenChange");
     }
 
     private void OnRewardedAdReward(string obj, SkinView view, HeadSkin skin)
@@ -126,8 +126,6 @@ public class SkinChangeView : MonoBehaviour
             var skinAsset = _skins.Skins.First(x => x.Skin == skin);
             OpenSkin(skinAsset);
             view.RemoveOnClickedAction();
-
-            YandexSDK.instance.onRewardedAdReward -= (obj) => OnRewardedAdReward(obj, view, skin);
         }
     }
 

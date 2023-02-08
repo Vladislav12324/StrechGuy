@@ -5,6 +5,7 @@ using CI.QuickSave;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Eiko.YaSDK.Data;
+using Sources.Data;
 
 public static class PlayerData
 {
@@ -35,8 +36,8 @@ public static class PlayerData
         
         var reader = QuickSaveReader.Create("Player");
         Level = 1;
-        if(YandexPrefs.GetInt("LevelComplete")>0)
-            Level = YandexPrefs.GetInt("LevelComplete");
+        if(Prefs.GetInt("LevelComplete")>0)
+            Level = Prefs.GetInt("LevelComplete");
         //OpenedSkins = reader.ReadOrDefault("Skins", new List<int>());
         Skin = reader.ReadOrDefault("Skin", skins.Skins.First().GetHashCode());
         
@@ -52,7 +53,7 @@ public static class PlayerData
     public static void Save()
     {
         var writer = QuickSaveWriter.Create("Player");
-        YandexPrefs.SetInt("LevelComplete",Level);
+        Prefs.SetInt("LevelComplete",Level);
         writer.Write("Skins", OpenedSkins);
         writer.Write("Skin", Skin);
         writer.Commit();

@@ -35,7 +35,6 @@ public class Level : MonoBehaviour
 
     public void Init(SpringMan man, IEnumerable<LevelWall> walls, Transform finish, CameraTrigger trigger, Color color)
     {
-
         _man = man;
         _walls = walls.ToList();
         _finishZone = finish;
@@ -66,11 +65,7 @@ public class Level : MonoBehaviour
             _man = bonus.TryGetModifiedSpringMan(_man);
             _man.Apply(bonus);   
         }
-        
-        #if UNITY_EDITOR
-        //_man.Apply(gameObject.AddComponent<InfinityMaxRopeLengthBonus>());
-        #endif
-        
+
         _man.JointDragged += JointDragged;
 
         foreach (var jointConnector in FindObjectsOfType<JointConnector>())
@@ -90,7 +85,6 @@ public class Level : MonoBehaviour
         _man.RopeTorn += Lose;
         
         _ui.Init();
-        //_ui.SkipClicked.AddListener(() => PlayerData.Level++);
         
         _onStart?.Invoke();
     }

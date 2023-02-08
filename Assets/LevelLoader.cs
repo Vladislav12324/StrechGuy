@@ -10,8 +10,6 @@ public static class LevelLoader
 
         SceneManager.LoadScene(sceneIndex);
         PlayerData.Level++;
-        
-        
     }
 
     private static void FillArrayRandomNumbers(this IList<int> collection, int min, int max)

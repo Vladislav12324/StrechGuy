@@ -1,4 +1,5 @@
 ﻿using Eiko.YaSDK;
+using Sources.Advertising;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -34,8 +35,8 @@ public class SkinPreview : MonoBehaviour
 
     public void OpenSkinByViewAd()
     {
-        YandexSDK.instance.onRewardedAdReward += DD;
-        YandexSDK.instance.ShowRewarded("SkinOpen");
+        AdvertisingSdk.RewardedEnded += DD;
+        AdvertisingSdk.ShowRewarded("SkinOpen");
         //TODO AD
     }
 
@@ -46,7 +47,7 @@ public class SkinPreview : MonoBehaviour
             PlayerData.OpenSkin(_skinAsset);
             PlayerData.Skin = _skinAsset.GetHashCode();
             Close();
-            YandexSDK.instance.onRewardedAdReward -= DD;
+            AdvertisingSdk.RewardedEnded -= DD;
         }
     }
 

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PurchaseProcess : MonoBehaviour
 {
-
     private static PurchaseProcess instance;
     public List<Purchase> purchases;
     private string signature;
@@ -29,7 +28,6 @@ public class PurchaseProcess : MonoBehaviour
         YandexSDK.instance.GettedPurchase += Instance_GettedPurchase;
         YandexSDK.instance.onPurchaseInitialize += Instance_onPurchaseInitialize;
         YandexSDK.instance.InitializePurchases();
-        
     }
 
     private void Instance_onPurchaseInitialize()

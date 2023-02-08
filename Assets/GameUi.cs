@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using Sources.Advertising;
 
 public class GameUi : MonoBehaviour
 {
@@ -30,12 +31,12 @@ public class GameUi : MonoBehaviour
 
     private void OnEnable()
     {
-        YandexSDK.instance.onRewardedAdReward += InstanceOnonRewardedAdReward;
+        AdvertisingSdk.RewardedEnded += InstanceOnonRewardedAdReward;
     }
 
     private void OnDisable()
     {
-        YandexSDK.instance.onRewardedAdReward -= InstanceOnonRewardedAdReward;
+        AdvertisingSdk.RewardedEnded -= InstanceOnonRewardedAdReward;
     }
 
     public void Init()
@@ -50,7 +51,7 @@ public class GameUi : MonoBehaviour
         _retry.onClick.AddListener(() =>
         {
             _retryLevel();
-            YandexSDK.instance.ShowInterstitial();
+            AdvertisingSdk.ShowInterstitial();
         });
 
         _next.onClick.AddListener(() =>
@@ -61,9 +62,8 @@ public class GameUi : MonoBehaviour
         
         _skip.onClick.AddListener(() =>
         {
-            YandexSDK.instance.ShowRewarded("SkipLevel");
-
-           // _loadNextLevel();
+            AdvertisingSdk.ShowRewarded("SkipLevel");
+            // _loadNextLevel();
         });
         
         _retry2.onClick = _retry.onClick;
@@ -104,18 +104,11 @@ public class GameUi : MonoBehaviour
         if(_next.isActiveAndEnabled)
             return;
         StartCoroutine(WinScreen());
-        /*
-        YandexSDK.instance.ShowInterstitial();
-        
-        _next.gameObject.SetActive(true);
-        
-        _skinOpen.gameObject.SetActive(true);
-
-        _skinOpen.UpProgress();*/
     }
-    public IEnumerator WinScreen() {
+    public IEnumerator WinScreen() 
+    {
         yield return new WaitForSeconds(2f);
-        YandexSDK.instance.ShowInterstitial();
+        AdvertisingSdk.ShowInterstitial();
 
         _next.gameObject.SetActive(true);
 
