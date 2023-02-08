@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Eiko.YaSDK;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public interface IDynamicJointConnection
 {
@@ -34,6 +35,7 @@ public class Level : MonoBehaviour
 
     public void Init(SpringMan man, IEnumerable<LevelWall> walls, Transform finish, CameraTrigger trigger, Color color)
     {
+
         _man = man;
         _walls = walls.ToList();
         _finishZone = finish;
@@ -110,10 +112,15 @@ public class Level : MonoBehaviour
 
         PlayerData.TryLoad(_skins);
         //YandexSDK.instance.ShowInterstitial();
+        //if (PlayerData.Level > SceneManager.GetActiveScene().buildIndex)
+          //  SceneManager.LoadScene(PlayerData.Level-1);
     }
     
     private void Start()
     {
+        if (PlayerData.Level-1 > SceneManager.GetActiveScene().buildIndex)
+            SceneManager.LoadScene(PlayerData.Level - 1);
+        
         _man.Deactivate();
         Application.targetFrameRate = 60;
         _man.Apply(_skins.GetById(PlayerData.Skin));

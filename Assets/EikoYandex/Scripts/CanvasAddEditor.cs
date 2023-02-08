@@ -11,13 +11,15 @@ namespace Eiko.YaSDK.Editor
         public GameObject baner;
         public GameObject fullScreen;
         public GameObject revarded;
+        public GameObject Review;
         public Text time;
         private int placement;
         public bool keepWaiting = false;
-
+        private static bool IsReviewed;
         public void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            
         }
         public void CloseFullScreen()
         {
@@ -53,6 +55,25 @@ namespace Eiko.YaSDK.Editor
             }
             time.text = "Award received";
             keepWaiting = false;
+        }
+        public void ShowReview()
+        {
+            Review.SetActive(true);
+        }
+        public void ReviewClosed()
+        {
+            Review.SetActive(false);
+            string Json;
+            
+            Json = JsonUtility.ToJson(
+                new ReviewCallback() 
+                {
+                    CanReview = !IsReviewed,
+                    FeedbackSent = !IsReviewed, 
+                    Reason = IsReviewed? "GAME_RATED" : "Success" 
+                });
+            IsReviewed = true;
+            YandexSDK.instance.OnReview(Json);
         }
     }
 }

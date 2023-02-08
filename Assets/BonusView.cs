@@ -5,15 +5,22 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class BonusView : MonoBehaviour
 {
-    [SerializeField] private Bonus _bonus;
+    [SerializeField] public Bonus _bonus;
 
     private Button _button;
-
+    public bool buy;
+    public string buy_id;
     public event Action<Bonus> Clicked;
 
     private void Awake()
     {
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(() => Clicked?.Invoke(_bonus));
+        if (buy == false)
+        {
+            _button = GetComponent<Button>();
+            _button.onClick.AddListener(() =>
+            {
+                Clicked?.Invoke(_bonus);
+            });
+        }
     }
 }

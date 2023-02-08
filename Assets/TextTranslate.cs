@@ -34,7 +34,7 @@ public class TextTranslate : MonoBehaviour
     public TMP_FontAsset eng_font, ru_font, pt_font, es_font, ar_font, hi_font, tr_font, ja_font, fr_font, id_font, de_font, it_font, zh_font;
     void Start()
     {
-        var text = SceneManager.GetActiveScene().buildIndex+1;
+        var text = SceneManager.GetActiveScene().buildIndex;
         TMP_FontAsset[] fonts = { eng_font, ru_font, pt_font, es_font, ar_font, hi_font, tr_font, ja_font, fr_font, id_font, de_font, it_font, zh_font };
         test = LangExtern.GetLang();
         //test = "ru";

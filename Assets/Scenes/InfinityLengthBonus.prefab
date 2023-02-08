@@ -309,6 +309,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bonus: {fileID: 7488926853836871948}
+  buy: 0
+  buy_id: 4
 --- !u!114 &7494102678463507125
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editorCanvas: {fileID: 4575259461749462097, guid: 17c8d08fe6a89b74790117f756a66409, type: 3}
   addsAvailable: 0
-  skip_chek: -1
+  Lang: ru

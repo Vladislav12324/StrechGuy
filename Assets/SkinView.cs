@@ -16,7 +16,10 @@ public class SkinView : MonoBehaviour
     private void Start()
     {
         if (gameObject.GetComponent<Button>().interactable == false)
+        {
             buy_button.SetActive(true);
+            buy_button.GetComponent<BuySkin>().id = (_id-475).ToString();
+        }
         else
             buy_button.SetActive(false);
     }

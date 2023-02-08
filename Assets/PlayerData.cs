@@ -4,6 +4,7 @@ using System.Linq;
 using CI.QuickSave;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Eiko.YaSDK.Data;
 
 public static class PlayerData
 {
@@ -12,7 +13,7 @@ public static class PlayerData
     public static int Level = 1;
     public static int Skin;
     public static int SkinOpenProgress;
-    
+
     private static bool _loaded;
     
     public static bool SoundStatus = true;
@@ -22,7 +23,7 @@ public static class PlayerData
     {
         if(_loaded)
             return;
-        
+
         #if UNITY_EDITOR
         var d = QuickSaveWriter.Create("Player");
         d.Delete("Level");
@@ -30,28 +31,28 @@ public static class PlayerData
         d.Delete("Skin");
         d.Commit();
         #endif
-        
-        
+
         
         var reader = QuickSaveReader.Create("Player");
-        Level = reader.ReadOrDefault("Level", 1);
-        OpenedSkins = reader.ReadOrDefault("Skins", new List<int>());
+        Level = 1;
+        if(YandexPrefs.GetInt("LevelComplete")>0)
+            Level = YandexPrefs.GetInt("LevelComplete");
+        //OpenedSkins = reader.ReadOrDefault("Skins", new List<int>());
         Skin = reader.ReadOrDefault("Skin", skins.Skins.First().GetHashCode());
         
         var sceneName = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(Level - 1));
+        Debug.Log(sceneName);
+       // if(sceneName != null && sceneName.Contains("Level"))
+         //   SceneManager.LoadScene(sceneName);
+        //else
+          //  SceneManager.LoadScene("Level Generator");
         
-        if(sceneName != null && sceneName.Contains("Level"))
-            SceneManager.LoadScene(sceneName);
-        else
-            SceneManager.LoadScene("Level Generator");
-        
-        _loaded = true;
     }
 
     public static void Save()
     {
         var writer = QuickSaveWriter.Create("Player");
-        writer.Write("Level", Level);
+        YandexPrefs.SetInt("LevelComplete",Level);
         writer.Write("Skins", OpenedSkins);
         writer.Write("Skin", Skin);
         writer.Commit();
@@ -68,4 +69,5 @@ public static class PlayerData
     }
     
     public static bool IsOpened(SkinAsset skin) => OpenedSkins.Contains(skin.GetHashCode()) || skin.AlwaysOpened;
+    
 }

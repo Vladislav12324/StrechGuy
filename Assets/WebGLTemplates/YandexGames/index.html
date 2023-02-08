@@ -61,7 +61,7 @@
         function Resize() {
             var size = document.documentElement.clientHeight + 'px';
             console.log(size);
-			container.style.height = size;
+            container.style.height = size;
         }
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         container.className = "unity-mobile";
@@ -124,10 +124,70 @@
             }
 
             function initPlayer() {
-                return sdk.getPlayer().then(_player => {
+                return sdk.getPlayer({ scopes: false }).then(_player => {
                     player = _player;
+                    return player;
                 }).catch(err => {
                     // Если игрок не авторизован, выбрасывает исключение USER_NOT_AUTHORIZED.
+                });
+            }
+            function setScore(key, value) {
+                playerStats[key] = value;
+                console.log('Set score' + key + value);
+                player.setStats(playerStats).then(() => { console.log('setted data!'); }).catch(err => { console.log('not setted' + err) });
+            }
+            function setData(key, value) {
+                playerData[key] = value;
+                console.log('Set Data' + key + value);
+                player.setData(playerData, true).then(() => { console.log('setted data!'); }).catch(err => { console.log('not setted' + err) });
+
+            }
+            function initPlayerData() {
+                initPlayer().then(_player => {
+                    if (_player.getMode() != 'lite') {
+                        var sendData = {};
+                        player.getData().then(datas => {
+                            var i = 0;
+                            playerData = datas;
+                            var adata = Array();
+                            for (var key in datas) {
+                                adata[i] = { key: key, value: datas[key] };
+                                i++;
+                            }
+                            sendData.data = adata;
+
+                            player.getStats().then(stats => {
+                                i = 0;
+                                playerStats = stats;
+                                var astats = Array();
+                                for (var keya in stats) {
+                                    astats[i] = { key: keya, value: stats[keya] };
+                                    i++;
+                                }
+                                sendData.score = astats;
+                                console.log('Geted data' + JSON.stringify(sendData));
+                                window.unityInstance.SendMessage('YandexSDK', 'OnGetData', JSON.stringify(sendData));
+                            }).catch(err => {
+                                console.log('No get data score' + err);
+                                window.unityInstance.SendMessage('YandexSDK', 'OnGetData', JSON.stringify(sendData));
+                            });
+
+
+
+                        }).catch(err => {
+                            console.log('NoNoAutorized' + err);
+                            window.unityInstance.SendMessage('YandexSDK', 'NoAutorized');
+                        });
+
+                    }
+                    else {
+                        console.log('NoNoAutorized');
+                        window.unityInstance.SendMessage('YandexSDK', 'NoAutorized');
+                    }
+                }).catch(err => {
+                    console.log('NoNoAutorized' + err);
+                    window.unityInstance.SendMessage('YandexSDK', 'NoAutorized');
+                    // Ошибка при инициализации объекта Player.
                 });
             }
 
@@ -174,23 +234,40 @@
                     }
                 })
             }
+            function getPurchases() {
+                payments.getPurchases().then(purchases => {
+                    var data = { "purchases": purchases, "signature": purchases.signature }
+                    var json = JSON.stringify(data);
+                    console.log(json);
+                    window.unityInstance.SendMessage('YandexSDK', 'OnGetPurchases', json);
+                }).catch(err => {
+                    // Выбрасывает исключение USER_NOT_AUTHORIZED для неавторизованных пользователей.
+                    console.log(err);
+                })
+            }
 
             function initPayments() {
                 sdk.getPayments().then(_payments => {
                     // Покупки доступны.
                     payments = _payments;
+                    window.unityInstance.SendMessage('YandexSDK', 'OnPurchaseInitialize');
                 }).catch(err => {
+                    window.unityInstance.SendMessage('YandexSDK', 'OnPurchaseInitializeFailed');
                 })
             }
 
             function buy(id) {
                 payments.purchase(id).then(purchase => {
                     // Покупка успешно совершена!
-                    window.unityInstance.SendMessage('YandexSDK', 'OnPurchaseSuccess', id);
+                    var json = JSON.stringify(purchase);
+                    console.log(json);
+
+                    window.unityInstance.SendMessage('YandexSDK', 'OnPurchaseSuccess', json);
                 }).catch(err => {
                     // Покупка не удалась: в консоли разработчика не добавлен товар с таким id,
                     // пользователь не авторизовался, передумал и закрыл окно оплаты,
                     // истекло отведенное на покупку время, не хватило денег и т. д.
+                    console.log(err);
                     window.unityInstance.SendMessage('YandexSDK', 'OnPurchaseFailed', err);
                 })
             }
@@ -198,7 +275,30 @@
             window.onunload = function (e) {
                 console.log("Calling OnClose from Browser!");
                 window.unityInstance.SendMessage("YandexSDK", "OnClose");
+
+                //var dialogText = "You game has been saved!  Would you like to continue unloading the page?";
+               // e.returnValue = dialogText;
+              //  return dialogText;
             };
+
+            function ShowReview() {
+                sdk.feedback.canReview()
+                    .then(({ value, reason }) => {
+                        if (value) {
+                            sdk.feedback.requestReview()
+                                .then(({ feedbackSent }) => {
+                                    var data = { "CanReview": value, "Reason": "Success", "FeedbackSent": feedbackSent };
+                                    SendCallback('OnReview',data);
+                                })
+                        } else {
+                            var data = { "CanReview": value, "Reason": reason, "FeedbackSent": false };
+                            SendCallback('OnReview', data);
+                        }
+                    })
+            }
+            function SendCallback(target, data) {
+                window.unityInstance.SendMessage('YandexSDK', target, JSON.stringify(data));
+            }
         </script>
 </body>
 </html>
