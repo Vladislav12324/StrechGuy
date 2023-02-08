@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Eiko.YaSDK;
+using Sources.Purchasing;
 
 public class NoAdds : MonoBehaviour
 {
     public bool skins;
     void Start()
     {
-        if (PurchaseProcess.Has("21") && skins==false)
+        if (Purchasing.Has("21") && skins==false)
             gameObject.SetActive(false);
         //Debug.Log(PlayerPrefs.GetInt("SkinsNoAddsw"));
-        if(PurchaseProcess.Has("22"))
+        if(Purchasing.Has("22"))
             gameObject.SetActive(false);
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Sources.LanguageManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -32,12 +33,20 @@ public class TextTranslate : MonoBehaviour
     public int lang_i;
     public bool skins,fly, double_range_lenght,iron_skin,infinity_length,info;
     public TMP_FontAsset eng_font, ru_font, pt_font, es_font, ar_font, hi_font, tr_font, ja_font, fr_font, id_font, de_font, it_font, zh_font;
+    [SerializeField] private LanguageSettings _settings;
+    
     void Start()
     {
         var text = SceneManager.GetActiveScene().buildIndex;
         TMP_FontAsset[] fonts = { eng_font, ru_font, pt_font, es_font, ar_font, hi_font, tr_font, ja_font, fr_font, id_font, de_font, it_font, zh_font };
-        test = LangExtern.GetLang();
-        //test = "ru";
+        if (_settings.IsLanguageOverriden)
+        {
+            test = _settings.OverrideLanguage;
+        }
+        else
+        {
+            test = LangExtern.GetLang();
+        }
         Debug.Log(test);
         FindI();
         if (skins == false && fly == false && double_range_lenght == false&&iron_skin==false&&infinity_length==false)
@@ -177,11 +186,6 @@ public class TextTranslate : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void FindI()
     {
         for (int j = 0; j < 13; j++)

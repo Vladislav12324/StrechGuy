@@ -4977,6 +4977,7 @@ MonoBehaviour:
   de_font: {fileID: 11400000, guid: 9505875a0babc9144b4deb3e21f15848, type: 2}
   it_font: {fileID: 11400000, guid: ab040a6fdac11834e8f0479afc0c9a92, type: 2}
   zh_font: {fileID: 11400000, guid: 07c42f3f3029dc04a9e2490ff3b2a264, type: 2}
+  _settings: {fileID: 11400000, guid: efe5100e7acec104cac1092cee7e2255, type: 2}
 --- !u!114 &794605858227657054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5555,6 +5556,7 @@ MonoBehaviour:
   de_font: {fileID: 11400000, guid: 9505875a0babc9144b4deb3e21f15848, type: 2}
   it_font: {fileID: 11400000, guid: ab040a6fdac11834e8f0479afc0c9a92, type: 2}
   zh_font: {fileID: 11400000, guid: 07c42f3f3029dc04a9e2490ff3b2a264, type: 2}
+  _settings: {fileID: 11400000, guid: efe5100e7acec104cac1092cee7e2255, type: 2}
 --- !u!114 &692680943087293340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6130,6 +6132,7 @@ MonoBehaviour:
   de_font: {fileID: 11400000, guid: 9505875a0babc9144b4deb3e21f15848, type: 2}
   it_font: {fileID: 11400000, guid: ab040a6fdac11834e8f0479afc0c9a92, type: 2}
   zh_font: {fileID: 11400000, guid: 07c42f3f3029dc04a9e2490ff3b2a264, type: 2}
+  _settings: {fileID: 11400000, guid: efe5100e7acec104cac1092cee7e2255, type: 2}
 --- !u!1 &4546257087681285804
 GameObject:
   m_ObjectHideFlags: 0
@@ -9170,6 +9173,7 @@ MonoBehaviour:
   de_font: {fileID: 11400000, guid: 9505875a0babc9144b4deb3e21f15848, type: 2}
   it_font: {fileID: 11400000, guid: ab040a6fdac11834e8f0479afc0c9a92, type: 2}
   zh_font: {fileID: 11400000, guid: 07c42f3f3029dc04a9e2490ff3b2a264, type: 2}
+  _settings: {fileID: 11400000, guid: efe5100e7acec104cac1092cee7e2255, type: 2}
 --- !u!114 &2510395578619818258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9864,6 +9868,7 @@ MonoBehaviour:
   de_font: {fileID: 11400000, guid: 9505875a0babc9144b4deb3e21f15848, type: 2}
   it_font: {fileID: 11400000, guid: ab040a6fdac11834e8f0479afc0c9a92, type: 2}
   zh_font: {fileID: 11400000, guid: 07c42f3f3029dc04a9e2490ff3b2a264, type: 2}
+  _settings: {fileID: 11400000, guid: efe5100e7acec104cac1092cee7e2255, type: 2}
 --- !u!114 &2556451900150305705
 MonoBehaviour:
   m_ObjectHideFlags: 0

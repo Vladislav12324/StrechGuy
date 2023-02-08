@@ -22,6 +22,7 @@ public class SkinOpenView : MonoBehaviour
         else
         {
             Prefs.Increment("skinprogress");
+            _progressValue = Prefs.GetInt("skinprogress");
         }
 
         _progress.DOValue(_progressValue / 10f, 1);

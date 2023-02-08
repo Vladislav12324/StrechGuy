@@ -20,7 +20,7 @@ public class PurchaseProcess : MonoBehaviour
     }
     private void Start()
     {
-        InitPurchases();
+        //InitPurchases();
     }
     public void InitPurchases()
     {
@@ -32,7 +32,6 @@ public class PurchaseProcess : MonoBehaviour
 
     private void Instance_onPurchaseInitialize()
     {
-        GetPurchases();
     }
 
     private void Instance_GettedPurchase(GetPurchasesCallback obj)
@@ -46,11 +45,6 @@ public class PurchaseProcess : MonoBehaviour
         purchases.Add(obj);
     }
 
-    private void GetPurchases()
-    {
-        YandexSDK.instance.TryGetPurchases();
-
-    }
     public static bool Has(string id)
     {
         return null != instance.purchases.FirstOrDefault(x=>x.productID==id);

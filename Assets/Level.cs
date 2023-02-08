@@ -93,7 +93,8 @@ public class Level : MonoBehaviour
     {
         PlayerData.Save();
 
-        _selection.BonusSelected -= SelectionOnBonusSelected;
+        if(_selection != null)
+            _selection.BonusSelected -= SelectionOnBonusSelected;
     }
 
     private void Awake()

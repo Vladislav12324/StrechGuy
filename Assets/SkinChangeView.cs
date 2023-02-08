@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Sources.Advertising;
+using Sources.Purchasing;
 
 public class SkinChangeView : MonoBehaviour
 {
@@ -32,10 +33,9 @@ public class SkinChangeView : MonoBehaviour
         _skinViewMan.Deactivate();
         _skinViewMan.Apply(gameObject.AddComponent<InfinityMaxRopeLengthBonus>());
         _skinViewMan.Apply(_skins.GetById(PlayerData.Skin));
-        YandexSDK.instance.InitializePurchases();
         for(int i = 0; i < 4; i++)
         {
-            if (PurchaseProcess.Has(skins_id[i]) == true || PurchaseProcess.Has("22"))
+            if (Purchasing.Has(skins_id[i]) == true || Purchasing.Has("22"))
             {
                 OpenedSkins.Add((_skins.Skins.First(x => x._id == i+1)).GetHashCode());
                 PlayerData.OpenSkin(_skins.Skins.First(x => x._id == i + 1));

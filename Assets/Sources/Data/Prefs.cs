@@ -1,20 +1,23 @@
 ﻿namespace Sources.Data
 {
-    public class Prefs
+    public static class Prefs
     {
-        public static int GetInt(string skinprogress)
+        private static readonly IPrefsImplementation _implementation = 
+            new PlayerPrefsImplementation();
+        
+        public static int GetInt(string key)
         {
-            throw new System.NotImplementedException();
+            return _implementation.GetInt(key);
         }
 
-        public static void SetInt(string skinprogress, int progressValue)
+        public static void SetInt(string key, int value)
         {
-            throw new System.NotImplementedException();
+            _implementation.SetInt(key, value);
         }
 
         public static void Increment(string integerKey)
         {
-            
+            _implementation.Increment(integerKey);
         }
     }
 }
